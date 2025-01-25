@@ -8,10 +8,9 @@ export type Point = {
   winner: string;
 };
 export type GameScore = "0" | "15" | "30" | "40" | "AV" | "40-40" | "AV-" | "-AV"| "-WIN" | "WIN-";
-export type SetScore = {
-  games: [number, number];
-  tieBreak?: [number, number];
-};
+
+export type SetScore = number[];
+
 export type MatchScore = {
   sets: SetScore[];
   currentGame: GameScore;

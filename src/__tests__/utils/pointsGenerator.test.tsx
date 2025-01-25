@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { Point, Player } from "@/types/tennis.types";
+ 
+import { Player } from "@/types/tennis.types";
 import { generatePoints } from "@/utils/pointsGenerator";
 
 describe('Points Generator' , () => {

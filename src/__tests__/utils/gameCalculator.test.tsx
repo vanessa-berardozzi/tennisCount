@@ -1,9 +1,9 @@
 import { calculateGameScore } from '../../utils/gameCalculator';
-import { GameScore, Point , Player} from '../../types/tennis.types';
+import { GameScore, Point } from '../../types/tennis.types';
 
 describe('Game Score Calculator', () => {
 	test('should start with 0-0', () => {
-		const points: Point[] = []; //
+		const points: Point[] = []; 
 		expect(calculateGameScore(points)).toBe('0-0' as GameScore);
 	});
 
