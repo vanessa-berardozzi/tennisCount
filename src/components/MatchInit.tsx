@@ -25,16 +25,24 @@ export const MatchInit = ({ onPointsGenerated }: MatchInitProps) => {
     setPoints(generatedPoints);
     onPointsGenerated(generatedPoints, players.player1, players.player2);
   };
-
-  
-  const handleLevelChange = (player: 'player1' | 'player2', value: number) => {
-    // Ensure value is between 1 and 10
-    const level = Math.min(Math.max(value, 1), 10) as PlayerLevel
-    setPlayers(prev => ({
-      ...prev,
-      [player]: {...prev.player1, level}
-    }))
+const validateLevel = (level: number): PlayerLevel => {
+  if (level >= 1 && level <= 10) {
+    return level as PlayerLevel;
   }
+  return 1;
+};
+  
+const handleLevelChange = (player: 'player1' | 'player2', newLevel: number) => {
+  const validLevel = validateLevel(newLevel);
+  
+  setPlayers(prev => ({
+    ...prev,
+    [player]: {
+      ...prev[player],
+      level: validLevel
+    }
+  }));
+};
 
 
 
@@ -53,13 +61,13 @@ export const MatchInit = ({ onPointsGenerated }: MatchInitProps) => {
             player1: {...prev.player1, name: e.target.value}
           }))}
         />
-        <input 
-          type="number"
-          min="1"
-          max="10"
-          value={players.player1.level}
-          onChange={(e) => handleLevelChange('player1', parseInt(e.target.value))}
-        />
+       <input 
+  type="number"
+  min="1"
+  max="10"
+  value={players.player1.level}
+  onChange={(e) => handleLevelChange('player1', parseInt(e.target.value))}
+/>
       </div>
 
       <div>
@@ -74,12 +82,12 @@ export const MatchInit = ({ onPointsGenerated }: MatchInitProps) => {
           }))}
         />
         <input 
-          type="number"
-          min="1"
-          max="10"
-          value={players.player2.level}
-          onChange={(e) => handleLevelChange('player2', parseInt(e.target.value))}
-        />
+  type="number"
+  min="1"
+  max="10"
+  value={players.player2.level}
+  onChange={(e) => handleLevelChange('player2', parseInt(e.target.value))}
+/>
       </div>
 
       <button onClick={handleGeneratePoints}>Générer les points</button>
@@ -103,5 +111,3 @@ export const MatchInit = ({ onPointsGenerated }: MatchInitProps) => {
     </div>
   );
 };
-
- 
