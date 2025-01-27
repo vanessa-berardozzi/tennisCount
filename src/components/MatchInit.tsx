@@ -16,15 +16,33 @@ export const MatchInit = ({ onPointsGenerated }: MatchInitProps) => {
     player1: { name: '', level: 5 as PlayerLevel },
     player2: { name: '', level: 5 as PlayerLevel }
   });
-
+ const [error, setError] = useState<string | null>(null);
   const [points, setPoints] = useState<Point[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleGeneratePoints = () => {
-    const generatedPoints = generatePoints(players.player1, players.player2);
-    setPoints(generatedPoints);
-    onPointsGenerated(generatedPoints, players.player1, players.player2);
+
+
+ try {
+      // Check if the player names are provided
+      if (!players.player1.name || !players.player2.name) {
+        setError("Les noms des joueurs sont requis");
+        return;
+      }
+
+
+   const generatedPoints = generatePoints(players.player1, players.player2);
+      setPoints(generatedPoints);
+      setError(null);
+      onPointsGenerated(generatedPoints, players.player1, players.player2);
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "Une erreur est survenue");
+    }
   };
+
+
+
+
 const validateLevel = (level: number): PlayerLevel => {
   if (level >= 1 && level <= 10) {
     return level as PlayerLevel;
@@ -97,7 +115,12 @@ const handleLevelChange = (player: 'player1' | 'player2', newLevel: number) => {
           Afficher les points
         </button>
       )}
-
+  {error && (
+        <div style={{ color: 'red', marginTop: '10px' }}>
+          {error}
+        </div>
+      )}
+      
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <h3>Points générés:</h3>
         {points.map((point, index) => (

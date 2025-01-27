@@ -2,10 +2,22 @@ import { NextResponse } from 'next/server'
 import { calculateMatchScore } from '@/lib/utils/matchCalculator'
 import { calculateGameScore } from '@/lib/utils/gameCalculator'
 import type { GameScore } from '@/types/tennis.types'
+import { validatePlayer, validatePoints } from '@/lib/utils/validation';
 
 export async function POST(request: Request) {
   try {
     const { points, player1, player2 } = await request.json()
+
+    try {
+      validatePlayer(player1);
+      validatePlayer(player2);
+      validatePoints(points);
+    } catch (error) {
+      return NextResponse.json(
+        { error: error instanceof Error ? error.message : 'Validation error' },
+        { status: 400 }
+      );
+    }
 
     // Group points into complete games (4 points)
     const games: string[][] = [];
@@ -71,7 +83,8 @@ export async function POST(request: Request) {
     })
   } catch (err) {
     return NextResponse.json(
-      { error: 'Error calculating match score', err },
+      { error: 'Error calculating match score', details: err instanceof Error ? err.message : 'Unknown error' },
+
       { status: 500 }
     )
   }
