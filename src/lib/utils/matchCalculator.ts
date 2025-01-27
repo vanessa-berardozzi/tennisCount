@@ -2,6 +2,12 @@ import type { GameScore, MatchScore } from '../../types/tennis.types';
 import { calculateSetScore } from './setCalculator';
 import { calculateGameScore } from './gameCalculator';
 
+/**
+ * @function calculateMatchScore
+ * @description Calculates the complete tennis match score
+ * @param {string[][]} games - Array of games with their points
+ * @returns {MatchScore} Match score with sets, current game and status
+ */
 export const calculateMatchScore = (games: string[][]): MatchScore => {
   if (games.length === 0) {
     return {

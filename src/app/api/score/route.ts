@@ -4,6 +4,40 @@ import { calculateGameScore } from '@/lib/utils/gameCalculator'
 import type { GameScore } from '@/types/tennis.types'
 import { validatePlayer, validatePoints } from '@/lib/utils/validation';
 
+/**
+ * @function POST
+ * @description Handles POST requests to calculate tennis match scores
+ * @param {Request} request - The incoming HTTP request
+ * 
+ * @throws {Error} When validation fails or calculation errors occur
+ * 
+ * @returns {Promise<NextResponse>} JSON response containing match status and scores
+ * 
+ * @example
+//  * // Request body
+ * {
+ *   points: Point[],
+ *   player1: Player,
+ *   player2: Player
+ * }
+ * 
+//  * // Success response
+ * {
+ *   status: string,
+ *   sets: number[][],
+ *   currentGame: {
+ *     score: GameScore,
+ *     player1Score: string,
+ *     player2Score: string
+ *   },
+ *   players: {
+ *     player1: string,
+ *     player2: string
+ *   },
+ *   isMatchFinished: boolean,
+ *   winner: string | null
+ * }
+ */
 export async function POST(request: Request) {
   try {
     const { points, player1, player2 } = await request.json()

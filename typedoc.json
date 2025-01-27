@@ -1,0 +1,20 @@
+{
+	"$schema": "https://typedoc.org/schema.json",
+	"entryPoints": [
+		"./src/lib/utils/*.ts",
+		"./src/types/*.ts",
+		"./src/components/**/*.tsx"
+	],
+	"entryPointStrategy": "expand",
+	"out": "docs",
+	"exclude": ["**/node_modules/**", "**/*.spec.ts", "**/*.test.ts"],
+	"excludePrivate": true,
+	"excludeProtected": true,
+	"excludeExternals": false,
+	"theme": "default",
+	"includeVersion": true,
+	"validation": {
+		"invalidLink": true,
+		"notExported": false
+	}
+}

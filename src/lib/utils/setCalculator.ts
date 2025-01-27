@@ -1,5 +1,11 @@
 import type { SetScore } from '../../types/tennis.types';
 
+/**
+ * @function calculateSetScore
+ * @description Calcule le score d'un set de tennis
+ * @param {string[]} games - Tableau des jeux gagnés ('WIN-' ou '-WIN')
+ * @returns {SetScore} Score du set sous forme de tuple [scoreJoueur1, scoreJoueur2]
+ */
 export const calculateSetScore = (games: string[]): SetScore => {
   if (games.length === 0) return [0, 0];
   

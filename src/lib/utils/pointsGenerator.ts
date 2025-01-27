@@ -1,5 +1,12 @@
 import type { Point, Player } from '../../types/tennis.types';
 
+/**
+ * @function generatePoints
+ * @description Génère des points aléatoires pour un match de tennis
+ * @param {Player} player1 - Premier joueur
+ * @param {Player} player2 - Second joueur
+ * @returns {Point[]} Tableau de 150 points générés
+ */
 export const generatePoints = (player1: Player, player2: Player): Point[] => {
   const points: Point[] = [];
   const totalPoints = 150;

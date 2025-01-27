@@ -4,10 +4,22 @@ import { generatePoints } from '@/lib/utils/pointsGenerator'
 import type { Point, Player, PlayerLevel } from '@/types/tennis.types'
 import { Modal } from './Modal/index'
 
+/**
+ * @interface MatchInitProps
+ * @description Props for the MatchInit component
+ * @property {Function} onPointsGenerated - Callback function called when points are generated
+ */
 interface MatchInitProps {
   onPointsGenerated: (points: Point[], player1: Player, player2: Player) => void;
 }
 
+/**
+ * @component MatchInit
+ * @description Component for initializing a tennis match with two players and generating points
+ * 
+ * @param {MatchInitProps} props - The component props
+ * @returns {JSX.Element} The MatchInit component
+ */
 export const MatchInit = ({ onPointsGenerated }: MatchInitProps) => {
   const [players, setPlayers] = useState<{
     player1: Player,
@@ -36,7 +48,7 @@ export const MatchInit = ({ onPointsGenerated }: MatchInitProps) => {
       setError(null);
       onPointsGenerated(generatedPoints, players.player1, players.player2);
     } catch (error) {
-      setError(error instanceof Error ? error.message : "Une erreur est survenue");
+      setError(error instanceof Error ? error.message : "Une erreur s'est produite");
     }
   };
 
@@ -122,10 +134,10 @@ const handleLevelChange = (player: 'player1' | 'player2', newLevel: number) => {
       )}
       
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <h3>Points générés:</h3>
+        <h3>Points générés :</h3>
         {points.map((point, index) => (
           <div key={index}>
-            Point {point.pointNumber} : remporté par {
+            Point {point.pointNumber} : gagné par {
               point.winner === 'WIN-' ? players.player1.name : players.player2.name
             }
           </div>

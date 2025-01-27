@@ -23,7 +23,7 @@ describe('ScoreBoard Component', () => {
   test('renders basic scoreboard structure', () => {
     render(<ScoreBoard {...defaultProps} />);
     
-    expect(screen.getByText(/Résultat/)).toBeInTheDocument();
+    expect(screen.getByText(/Statut/)).toBeInTheDocument();
     expect(screen.getByText('Set 1')).toBeInTheDocument();
     expect(screen.getByText('Current Game')).toBeInTheDocument();
   });

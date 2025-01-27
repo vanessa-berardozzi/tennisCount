@@ -1,4 +1,4 @@
-import styles from './Modal.module.css';
+import styles from './index.module.css';
 
 interface ModalProps {
   isOpen: boolean;
