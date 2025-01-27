@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { generatePoints } from '@/lib/utils/pointsGenerator'
 import type { Point, Player, PlayerLevel } from '@/types/tennis.types'
-import { Modal } from './Modal'
+import { Modal } from './Modal/index'
 
 interface MatchInitProps {
   onPointsGenerated: (points: Point[], player1: Player, player2: Player) => void;
@@ -59,7 +59,7 @@ const handleLevelChange = (player: 'player1' | 'player2', newLevel: number) => {
           onChange={(e) => setPlayers(prev => ({
             ...prev,
             player1: {...prev.player1, name: e.target.value}
-          }))}
+          }))} 
         />
        <input 
   type="number"

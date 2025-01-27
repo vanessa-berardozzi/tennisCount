@@ -1,6 +1,6 @@
 'use client'
 import type { SetScore, GameScore, APIResponse} from '@/types/tennis.types'
-
+import styles from './ScoreBoard.module.css'
 
 interface ScoreBoardProps extends APIResponse {
   status: string;
@@ -22,30 +22,30 @@ export const ScoreBoard = ({ status, sets, currentGame, players }: ScoreBoardPro
   return (
     <div>
       <h3>Résultat : {status}</h3>
-      <table>
+      <table className={styles.scoreTable}>
         <thead>
           <tr>
-            <th></th>
+            <th className={styles.cell}></th>
             {sets.slice(0, 3).map((_, index) => (
-              <th key={index}>Set {index + 1}</th>
+              <th key={index} className={styles.cell}>Set {index + 1}</th>
             ))}
-            <th>Current Game</th>
+            <th className={styles.cell}>Current Game</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>{players.player1}</td>
+            <td className={styles.cell}>{players.player1}</td>
             {sets.slice(0, 3).map((set, index) => (
-              <td key={index}>{set[0]}</td>
+              <td key={index} className={styles.cell}>{set[0]}</td>
             ))}
-            <td>{currentGame.player1Score}</td>
+            <td className={styles.cell}>{currentGame.player1Score}</td>
           </tr>
           <tr>
-            <td>{players.player2}</td>
+            <td className={styles.cell}>{players.player2}</td>
             {sets.slice(0, 3).map((set, index) => (
-              <td key={index}>{set[1]}</td>
+              <td key={index} className={styles.cell}>{set[1]}</td>
             ))}
-            <td>{currentGame.player2Score}</td>
+            <td className={styles.cell}>{currentGame.player2Score}</td>
           </tr>
         </tbody>
       </table>

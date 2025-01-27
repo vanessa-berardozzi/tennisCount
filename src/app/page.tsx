@@ -2,7 +2,7 @@
 'use client'
 import { useState } from 'react'
 import { MatchInit } from '@/components/MatchInit'
-import { ScoreBoard } from '@/components/ScoreBoard'
+import { ScoreBoard } from '@/components/ScoreBoard/index'
 import type { Point, Player, APIResponse } from '@/types/tennis.types'
 
 export default function Home() {
