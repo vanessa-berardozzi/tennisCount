@@ -1,4 +1,3 @@
- 
 import { Player } from "@/types/tennis.types";
 import { generatePoints } from "../../../lib/utils/pointsGenerator";
 
@@ -15,22 +14,21 @@ describe('Points Generator' , () => {
   })
 
   test('Should give more points to the player with higher level', () => {
+    const player1: Player = {
+      name: "Stronger Player",
+      level: 7
+    };
 
-const player1:    Player ={
-  name: "Stronger Player",
-  level: 7
-}
+    const player2: Player = {
+      name: "Weaker Player",
+      level: 3
+    };
+    
+    const points = generatePoints(player1, player2);
+    const strongerPlayerWins = points.filter(point => point.winner === 'WIN-').length;
+    const weakerPlayerWins = points.filter(point => point.winner === '-WIN').length;
 
-const player2 : Player = {
-    name: "weakerPlayer",
-    level: 5
-}
-const points = generatePoints(player1 ,player2)
-
- const strongerPlayerWins = points.filter(point => point.winner === player1.name).length;
-  const weakerPlayerWins = points.filter(point => point.winner === player2.name).length;
-
-  expect(strongerPlayerWins).toBeGreaterThan(weakerPlayerWins);
+    expect(strongerPlayerWins).toBeGreaterThan(weakerPlayerWins);
   });
 }) ;
 

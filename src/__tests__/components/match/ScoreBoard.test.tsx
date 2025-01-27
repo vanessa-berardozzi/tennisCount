@@ -41,12 +41,16 @@ describe('ScoreBoard Component', () => {
       sets: [[6, 4], [4, 6], [6, 3]],
     };
 
-    const { getAllByRole } = render(<ScoreBoard {...propsWithSets} />);
+    render(<ScoreBoard {...propsWithSets} />);
+    const rows = screen.getAllByRole('row');
     
-    const cells = getAllByRole('cell');
-    // Skip player names cells (first column)
-    expect(cells[1]).toHaveTextContent('6'); // First set player 1
-    expect(cells[5]).toHaveTextContent('4'); // First set player 2
+    // Première ligne (joueur 1)
+    const player1Cells = rows[1].querySelectorAll('td');
+    expect(player1Cells[1]).toHaveTextContent('6');
+    
+    // Deuxième ligne (joueur 2)
+    const player2Cells = rows[2].querySelectorAll('td');
+    expect(player2Cells[1]).toHaveTextContent('4');
   });
 
   test('displays current game score correctly', () => {

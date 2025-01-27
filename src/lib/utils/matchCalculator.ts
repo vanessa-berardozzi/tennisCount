@@ -1,5 +1,6 @@
 import type { GameScore, MatchScore } from '../../types/tennis.types';
 import { calculateSetScore } from './setCalculator';
+import { calculateGameScore } from './gameCalculator';
 
 export const calculateMatchScore = (games: string[][]): MatchScore => {
   if (games.length === 0) {
@@ -36,17 +37,35 @@ export const calculateMatchScore = (games: string[][]): MatchScore => {
     setGames.push(currentSetGames);
   }
 
-  // Calculate each set score
+  // Calculate each set score and determine winners
   const setScores = setGames.map(set => calculateSetScore(set));
 
-  // Determine if match is finished
-  const player1Sets = setScores.filter(score => score[0] > score[1]).length;
-  const player2Sets = setScores.filter(score => score[1] > score[0]).length;
-  const isMatchFinished = player1Sets >= 3 || player2Sets >= 3;
+  // Compter les sets terminés et arrêter dès qu'un joueur gagne 3 sets
+  let player1WonSets = 0;
+  let player2WonSets = 0;
+  let matchFinished = false;
+
+  for (const score of setScores) {
+    if (matchFinished) break;
+
+    const [p1Score, p2Score] = score;
+    if ((p1Score === 6 && p1Score >= p2Score + 2) || p1Score === 7) {
+      player1WonSets++;
+      if (player1WonSets === 3) matchFinished = true;
+    }
+    if ((p2Score === 6 && p2Score >= p1Score + 2) || p2Score === 7) {
+      player2WonSets++;
+      if (player2WonSets === 3) matchFinished = true;
+    }
+  }
 
   return {
-    sets: setScores,
-    currentGame: '0-0' as GameScore,
-    isMatchFinished
+    sets: setScores.slice(0, 3),
+    currentGame: matchFinished ? '0-0' as GameScore : 
+      games.length > 0 ? calculateGameScore(games[games.length - 1].map((winner, index) => ({
+        pointNumber: index + 1,
+        winner
+      }))) : '0-0' as GameScore,
+    isMatchFinished: matchFinished
   };
 };
