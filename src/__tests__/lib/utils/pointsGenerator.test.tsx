@@ -1,6 +1,6 @@
  
 import { Player } from "@/types/tennis.types";
-import { generatePoints } from "@/utils/pointsGenerator";
+import { generatePoints } from "../../../lib/utils/pointsGenerator";
 
 describe('Points Generator' , () => {
   test('Should génerate 150 points', () =>{

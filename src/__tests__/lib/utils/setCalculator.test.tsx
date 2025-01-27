@@ -1,4 +1,4 @@
-import { calculateSetScore } from '../../utils/setCalculator';
+import { calculateSetScore } from '../../../lib/utils/setCalculator';
 
 describe('Set Calculator', () => {
   // Set initial

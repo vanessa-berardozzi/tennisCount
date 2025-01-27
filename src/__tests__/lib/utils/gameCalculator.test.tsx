@@ -1,42 +1,37 @@
-import { calculateGameScore } from '../../utils/gameCalculator';
-import { GameScore, Point } from '../../types/tennis.types';
+import { calculateGameScore } from '../../../lib/utils/gameCalculator';
+import { GameScore, Point } from '../../../types/tennis.types';
 
 describe('Game Score Calculator', () => {
-	test('should start with 0-0', () => {
-		const points: Point[] = []; 
-		expect(calculateGameScore(points)).toBe('0-0' as GameScore);
-	});
+  test('should start with 0-0', () => {
+    const points: Point[] = [];
+    expect(calculateGameScore(points)).toBe('0-0' as GameScore);
+  });
 
-	test('should be 15-0 when first player wins first point', () => {
-		const points = [{ pointNumber: 1, winner: 'Joueur 1' }];
-		expect(calculateGameScore(points)).toBe('15-0' as GameScore);
-	});
+  test('should be 30-0 when first player wins two points', () => {
+    const points = [
+      { pointNumber: 1, winner: 'WIN-' },
+      { pointNumber: 2, winner: 'WIN-' },
+    ];
+    expect(calculateGameScore(points)).toBe('30-0' as GameScore);
+  });
 
-	test('should be 30-0 when first player wins two points', () => {
-		const points = [
-			{ pointNumber: 1, winner: 'Joueur 1' },
-			{ pointNumber: 2, winner: 'Joueur 1' },
-		];
-		expect(calculateGameScore(points)).toBe('30-0' as GameScore);
-	});
+  test('should be 15-15 when each player wins one point', () => {
+    const points = [
+      { pointNumber: 1, winner: 'WIN-' },
+      { pointNumber: 2, winner: '-WIN' },
+    ];
+    expect(calculateGameScore(points)).toBe('15-15' as GameScore);
+  });
 
-	test('should be 15-15 when each player wins one point', () => {
-		const points = [
-			{ pointNumber: 1, winner: 'Joueur 1' },
-			{ pointNumber: 2, winner: 'Joueur 2' },
-		];
-		expect(calculateGameScore(points)).toBe('15-15' as GameScore);
-	});
-
-	test('Should be 40-15 when first player win three points and second player one point', () => {
-		const points = [
-			{ pointNumber: 1, winner: 'Joueur 1' },
-			{ pointNumber: 2, winner: 'Joueur 2' },
-			{ pointNumber: 3, winner: 'Joueur 1' },
-			{ pointNumber: 4, winner: 'Joueur 1' },
-		];
-		expect(calculateGameScore(points)).toBe('40-15' as GameScore);
-	});
+  test('Should be 40-15 when first player wins three points and second player one', () => {
+    const points = [
+      { pointNumber: 1, winner: 'WIN-' },
+      { pointNumber: 2, winner: '-WIN' },
+      { pointNumber: 3, winner: 'WIN-' }, 
+      { pointNumber: 4, winner: 'WIN-' },
+    ];
+    expect(calculateGameScore(points)).toBe('40-15' as GameScore);
+  });
 
 	//Deuce
 
