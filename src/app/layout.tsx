@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-
+import { Analytics } from "@vercel/analytics/react"
 /**
  * @const metadata
  * @description Application metadata for Next.js
@@ -27,6 +27,8 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body>{children}</body>
+       <Analytics />
     </html>
+
   )
 }
